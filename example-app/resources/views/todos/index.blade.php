@@ -92,8 +92,25 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script>
+        //inicializamos el data table
         $(document).ready(function() {
-            $('#todos').DataTable();
+            $('#todos').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ Elementos por página",
+                    "search" : "Buscar: ",
+                    "loadingRecords": "Cargando...",
+                    "zeroRecords": "No se encontraron resultados.",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "0 registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros en total.)",
+                    "paginate": {
+                        "first":      "Primero",
+                        "last":       "Último",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                }
+            });
         } );
     </script>
 @endsection
