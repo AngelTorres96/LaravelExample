@@ -48,41 +48,48 @@
             @endforeach
         </div>
     </div>
-    <div class="container w-75 border mt-4 p-4">
-        <table id="todos" class="table table-striped" style="width:100%">
-        <thead class="bg-primary text-white">
+    <div class="container w-100 border mt-4 p-4">
+        <table id="todos" class="table table-striped table-bordered text-center" style="width:100%">
+        <thead>
             <tr>
-                <th>Title</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>
+                    <form action="{{ route('todos') }}" method="POST" style="display:inline">
+                        <button class="btn btn-primary btn-sm">Nuevo</button>
+                    </form> 
+                </th>
+            </tr>
+            <tr >
+                <th>Clave</th>
+                <th>Nombre</th>
+                <th>Abreviación</th>
+                <th>Tipo</th>
+                <th>Fecha registro</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
            @foreach ($todos as $todo)
            <tr>
-                <th>{{$todo->title}}</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
+                <td>{{$todo->title}}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <form action="{{ route('todos-edit',[$todo->id]) }}" method="GET" style="display:inline">
+                        <button class="btn btn-success btn-sm">Modificar</button>
+                    </form> 
+                    <form action="{{ route('todos-destroy',[$todo->id]) }}" method="POST" style="display:inline">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
             </tr>
            @endforeach
-            
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
+           
         </table>
     </div>
 @endsection
@@ -95,6 +102,7 @@
         //inicializamos el data table
         $(document).ready(function() {
             $('#todos').DataTable({
+                //Establecemos el idioma
                 "language": {
                     "lengthMenu": "Mostrar _MENU_ Elementos por página",
                     "search" : "Buscar: ",
@@ -109,8 +117,15 @@
                         "next":       "Siguiente",
                         "previous":   "Anterior"
                     }
-                }
+                },
+                //configuramos el paginado
+                "pagingType":"simple_numbers",
+                "columnDefs": [
+                    { "width": "20%", "targets": 6 }
+                ]
             });
         } );
+        	
+        $.fn.DataTable.ext.pager.numbers_length = 3;
     </script>
 @endsection
