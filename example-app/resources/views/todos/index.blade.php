@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('css')
+    <link style= "stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+@endsection
+
 @section('content')
     <div class="container w-25 border mt-4 p-4">
         <form action="{{ route('todos') }}" method="POST">
@@ -19,6 +23,12 @@
                  
             </div>
             
+            <label for="category_id" class="form-label"> Categoria de la tarea</label>
+            <select name="category_id" class="form-select">
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
             <button type="submit" class="btn btn-primary">Crear nueva tarea</button>
         </form>
         <div>
@@ -38,4 +48,52 @@
             @endforeach
         </div>
     </div>
+    <div class="container w-75 border mt-4 p-4">
+        <table id="todos" class="table table-striped" style="width:100%">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Title</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach ($todos as $todo)
+           <tr>
+                <th>{{$todo->title}}</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+            </tr>
+           @endforeach
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+        </table>
+    </div>
+@endsection
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#todos').DataTable();
+        } );
+    </script>
 @endsection

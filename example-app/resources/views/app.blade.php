@@ -24,6 +24,7 @@
             text-decoration:none;
         }
     </style>
+    @yield('css')
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,15 +36,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Tareas</a>
+          <a class="nav-link" aria-current="page" href="{{ route('todos')}}">Tareas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Categorias</a>
+          <a class="nav-link" href="{{ route('categories.index')}}">Categorias</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 @yield('content')
+@yield('js')
 </body>
 </html>
